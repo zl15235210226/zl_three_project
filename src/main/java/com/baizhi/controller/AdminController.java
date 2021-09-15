@@ -85,14 +85,40 @@ public class AdminController {
         hashMap.put("token", token);
         return hashMap;
 
-        /**
-         * 验证用户登录状态
-         * 通过token 获取对应的用户名  比对用户名
-         */
 
-        /**
-         * 退出登录
-         * 删除redis中保存的用户登录状态 LOGIN+TOKEN
-         */
+
+
+    }
+
+    /**
+     * 验证用户登录状态
+     * 通过token 获取对应的用户名  比对用户名
+     *
+     */
+    @PostMapping("VerificationUser")
+    public Object verificationUser(@RequestBody Map<String, String> map){
+
+        String token = map.get("token");
+        Object token1 = stringRedisTemplate.opsForValue().get(RedisPrefix.USER_LOGIN + token);
+        System.out.println("token = " + token);
+
+
+        return token1;
+    }
+    /**
+     * 退出登录
+     * 删除redis中保存的用户登录状态 LOGIN+TOKEN
+     */
+    @PostMapping("/exit/{token}")
+    public Map<String, Object> exit(@PathVariable("token") String token){
+        HashMap hashMap = new HashMap<>();
+        try{
+            stringRedisTemplate.delete(RedisPrefix.USER_LOGIN + token);
+            hashMap.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            hashMap.put("success",false);
+        }
+        return hashMap;
     }
 }

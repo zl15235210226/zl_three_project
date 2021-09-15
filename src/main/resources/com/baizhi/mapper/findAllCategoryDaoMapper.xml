@@ -12,4 +12,8 @@
     <delete id="deleteCategory" parameterType="Category">
         delete from category where id=#{id}
     </delete>
+
+    <update id="updateCate" parameterType="Category">
+        update category set name=#{name} where id=#{id}
+    </update>
 </mapper>

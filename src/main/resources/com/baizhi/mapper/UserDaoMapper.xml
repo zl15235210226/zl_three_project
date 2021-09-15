@@ -11,16 +11,33 @@
                status,
                phone
     </sql>
-    <!--分页查询-->
-    <select id="findAllUser" resultType="User">
-        select
-        <include refid="userField"/>
 
-        from user limit #{start},#{rows}
+    <select id="findAllUser" resultType="User" >
+        select  <include refid="userField"/> from user
+        <where >
+            <if test="name!=null"> name like #{name}</if>
+            <if test="status!=null">and status like #{status}</if>
+            <if test="phone!=null">and phone like #{phone}</if>
+        </where>
+        limit #{start},#{rows}
     </select>
-    <!-- 返回用户的总数量 -->
+
+    <!--返回用户的总数量-->
     <select id="findUserTotal" resultType="long">
-        select count(id)
-        from user
+        select count(id) from user
+        <where >
+            <if test="name!=null"> name like #{name }</if>
+            <if test="status!=null">and status like #{status}</if>
+            <if test="phone!=null">and phone like #{phone}</if>
+        </where>
     </select>
+
+    <delete id="delUser" parameterType="Integer">
+        delete  from user where id = #{id}
+    </delete>
+
+    <update id="updUser" parameterType="User">
+        update user set status = #{status} where id = #{id}
+    </update>
+
 </mapper>

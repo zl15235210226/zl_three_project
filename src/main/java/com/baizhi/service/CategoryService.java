@@ -8,4 +8,6 @@ public interface CategoryService {
     List<Category> findAllCategory();
     void  saveCategory(Category category);
     void deleteCategory(Integer id);
+
+    void updateCategpryController(Category category);
 }

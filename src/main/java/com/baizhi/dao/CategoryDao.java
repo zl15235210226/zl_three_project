@@ -10,4 +10,6 @@ public interface CategoryDao {
     void saveCategory(Category category);
     //删除方法
     void deleteCategory(Integer id);
+    //更新方法
+    void updateCate(Category category);
 }

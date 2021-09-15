@@ -1,6 +1,5 @@
 package com.baizhi.controller;
 
-import com.baizhi.dao.CategoryDao;
 import com.baizhi.entity.Category;
 import com.baizhi.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,7 @@ public class CategoryController {
 
     @Resource
     private CategoryService categoryService;
-    @Resource
-    private CategoryDao categoryDao;
+
     /**
      * 类别列表
      * @return
@@ -51,12 +49,14 @@ public class CategoryController {
     }
 
     /**
-     * 添加
+     * 删除
      * @param id
      * @return
      */
     @DeleteMapping("/delete/{id}")
     public  Map<String,Object> delete(@PathVariable("id") Integer id) {
+        System.out.println(id+"+++++++++");
+
         HashMap<String,Object> map=new HashMap<>();
         try {
             categoryService.deleteCategory(id);
@@ -69,4 +69,8 @@ public class CategoryController {
         }
         return map;
     }
+     @PutMapping("/update")
+    public void update(@RequestBody Category category){
+        categoryService.updateCategpryController(category);
+     }
 }

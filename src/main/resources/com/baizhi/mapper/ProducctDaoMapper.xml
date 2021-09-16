@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ProductDao">
+
+
+
+    <select id="findAllProduct" resultType="Product">
+          select id,
+               name,
+               course_img         as courseImg,
+               course_type        as courseType,
+               brief,
+               level,
+               pub_date           as pubDate,
+               period,
+               status,
+               students,
+               lessons,
+               pub_lessons        as pubLessons,
+               price,
+               course_category_id as courseCategoryId,
+               teacher_id         as teacherId
+        from bz_course
+    </select>
+</mapper>

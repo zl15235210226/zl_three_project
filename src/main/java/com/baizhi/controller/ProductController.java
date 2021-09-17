@@ -37,6 +37,7 @@ public class ProductController {
      */
     @GetMapping("QueryAllProduct")
     public Map<String, Object> queryAllProduct(@RequestParam Integer start, @RequestParam Integer page) {
+        start = (start - 1) *  page;
         HashMap<String, Object> result = new HashMap<>();
         // 返回的分页后的对象
         List<Product> users = projectService.queryAllProduct(null,null,null,start, page);
@@ -55,7 +56,8 @@ public class ProductController {
      */
     @PostMapping("upload")
     public String upload(MultipartFile file) throws IOException {
-        System.out.println(realPath);
+
+       // System.out.println(realPath);
        //创建日期目录
         String dateString = LocalDate.now().toString();
         File dateDir = new File(realPath, dateString);

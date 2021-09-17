@@ -1,6 +1,7 @@
 package com.baizhi.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Product {
 
@@ -19,6 +20,45 @@ public class Product {
     private Double price;       // 课程价格
     private Integer courseCategoryId;   // 课程所属的类别
     private Integer teacherId;      // 课程的讲师id
+    private Category category;
+    private Teacher teacher;
+
+    public Product(Integer id, String name, String courseImg, Integer courseType, String brief, String level, Date pubDate, Integer period, Integer status, Integer students, Integer lessons, Integer pubLessons, Double price, Integer courseCategoryId, Integer teacherId, Category category, Teacher teacher) {
+        this.id = id;
+        this.name = name;
+        this.courseImg = courseImg;
+        this.courseType = courseType;
+        this.brief = brief;
+        this.level = level;
+        this.pubDate = pubDate;
+        this.period = period;
+        this.status = status;
+        this.students = students;
+        this.lessons = lessons;
+        this.pubLessons = pubLessons;
+        this.price = price;
+        this.courseCategoryId = courseCategoryId;
+        this.teacherId = teacherId;
+        this.category = category;
+        this.teacher = teacher;
+    }
+
+    public Product() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(courseImg, product.courseImg) && Objects.equals(courseType, product.courseType) && Objects.equals(brief, product.brief) && Objects.equals(level, product.level) && Objects.equals(pubDate, product.pubDate) && Objects.equals(period, product.period) && Objects.equals(status, product.status) && Objects.equals(students, product.students) && Objects.equals(lessons, product.lessons) && Objects.equals(pubLessons, product.pubLessons) && Objects.equals(price, product.price) && Objects.equals(courseCategoryId, product.courseCategoryId) && Objects.equals(teacherId, product.teacherId) && Objects.equals(category, product.category) && Objects.equals(teacher, product.teacher);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, courseImg, courseType, brief, level, pubDate, period, status, students, lessons, pubLessons, price, courseCategoryId, teacherId, category, teacher);
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -37,28 +77,25 @@ public class Product {
                 ", price=" + price +
                 ", courseCategoryId=" + courseCategoryId +
                 ", teacherId=" + teacherId +
+                ", category=" + category +
+                ", teacher=" + teacher +
                 '}';
     }
 
-    public Product(Integer id, String name, String courseImg, Integer courseType, String brief, String level, Date pubDate, Integer period, Integer status, Integer students, Integer lessons, Integer pubLessons, Double price, Integer courseCategoryId, Integer teacherId) {
-        this.id = id;
-        this.name = name;
-        this.courseImg = courseImg;
-        this.courseType = courseType;
-        this.brief = brief;
-        this.level = level;
-        this.pubDate = pubDate;
-        this.period = period;
-        this.status = status;
-        this.students = students;
-        this.lessons = lessons;
-        this.pubLessons = pubLessons;
-        this.price = price;
-        this.courseCategoryId = courseCategoryId;
-        this.teacherId = teacherId;
+    public Category getCategory() {
+        return category;
     }
 
-    public Product() {
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public Integer getId() {

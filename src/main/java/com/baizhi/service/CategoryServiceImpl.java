@@ -2,16 +2,18 @@ package com.baizhi.service;
 
 import com.baizhi.dao.CategoryDao;
 import com.baizhi.entity.Category;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
+
+    @Resource
     private CategoryDao categoryDao;
     @Override
     public List<Category> findAllCategory() {

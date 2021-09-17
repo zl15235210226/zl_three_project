@@ -1,25 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baizhi.dao.ProductDao">
-
-
-
-    <select id="findAllProduct" resultType="Product">
-          select id,
-               name,
-               course_img         as courseImg,
-               course_type        as courseType,
-               brief,
-               level,
-               pub_date           as pubDate,
-               period,
-               status,
-               students,
-               lessons,
-               pub_lessons        as pubLessons,
-               price,
-               course_category_id as courseCategoryId,
-               teacher_id         as teacherId
-        from bz_course
+    <sql id="userField">
+        p.id  pid, p.name  pname,course_img  courseImg, course_type  courseType, p.brief   pbrief, level, pub_date  pubDate,  period,  status,
+        students, lessons, pub_lessons   pubLessons,price,c.id  cid,c.name  cname, t.id  tid,t.name  tname
+    </sql>
+    <select id="queryAllProduct" resultMap="rm1">
+        select <include refid="userField"/>
+        from bz_course  p left join category  c
+        on course_category_id = c.id
+        left join bz_teacher  t
+        on teacher_id = t.id
+        <where >
+            <if test="name!=null"> name like #{name}</if>
+            <if test="status!=null">and status like #{status}</if>
+            <if test="phone!=null">and phone like #{phone}</if>
+        </where>
+        limit #{start},#{number}
     </select>
+    <!--返回用户的总数量-->
+    <select id="queryProductTotal" resultType="long">
+        select count(id) from bz_course
+        <where >
+            <if test="name!=null"> name like #{name}</if>
+            <if test="status!=null">and status like #{status}</if>
+            <if test="phone!=null">and phone like #{phone}</if>
+        </where>
+    </select>
+
+    <resultMap id="rm1" type="Product">
+        <id column="pid" property="id"/>
+        <result column="pname" property="name"/>
+        <result column="courseImg" property="courseImg"/>
+        <result column="courseType" property="courseType"/>
+        <result column="pbrief" property="brief"/>
+        <result column="level" property="level"/>
+        <result column="pubDate" property="pubDate"/>
+        <result column="period" property="period"/>
+        <result column="status" property="status"/>
+        <result column="students" property="students"/>
+        <result column="lessons" property="lessons"/>
+        <result column="pubLessons" property="pubLessons"/>
+        <result column="price" property="price"/>
+        <association property="category" javaType="Category">
+            <id column="cid" property="id"/>
+            <result column="cname" property="name"/>
+        </association>
+        <association property="teacher" javaType="Teacher">
+            <id column="tid" property="id"/>
+            <result column="tname" property="name"/>
+        </association>
+    </resultMap>
+
+    <update id="upDate" parameterType="Product">
+        update  bz_course set name=#{name} where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from bz_course where id=#{0}
+    </delete>
+
+    <insert id="add" parameterType="Product" >
+        insert into bz_course (name,course_img,course_type,brief,level,pub_date ,period,status,students,lessons,pub_lessons,price,course_category_id,teacher_id)
+        values (#{name},#{courseImg},#{courseType},#{brief},#{level},#{pubDate},#{period},#{status},#{students},#{lessons},#{pubLessons},#{price},#{courseCategoryId},#{teacherId})
+    </insert>
 </mapper>

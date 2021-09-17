@@ -1,21 +1,22 @@
 package com.baizhi.entity;
 
-public class Teatcher {;
-  private    Integer id;
-  private    Integer        is_show;
-  private    Integer orders;
-  private     Integer         is_delete;
-  private     String name;
-  private     Integer        role;
-  private    String title;
-  private    String        signature;
-  private     String image;
-  private    Integer       brief;
+public class Teacher {
+    ;
+    private Integer id;
+    private Integer is_show;
+    private Integer orders;
+    private Integer is_delete;
+    private String name;
+    private Integer role;
+    private String title;
+    private String signature;
+    private String image;
+    private Integer brief;
 
-    public Teatcher() {
+    public Teacher() {
     }
 
-    public Teatcher(Integer id, Integer is_show, Integer orders, Integer is_delete, String name, Integer role, String title, String signature, String image, Integer brief) {
+    public Teacher(Integer id, Integer is_show, Integer orders, Integer is_delete, String name, Integer role, String title, String signature, String image, Integer brief) {
         this.id = id;
         this.is_show = is_show;
         this.orders = orders;

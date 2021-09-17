@@ -4,13 +4,15 @@ import com.baizhi.dao.AdminDao;
 import com.baizhi.entity.Admin;
 import com.baizhi.utils.Md5Utils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
 public class AdminServiceImpl implements  AdminService{
+
     @Resource
     private AdminDao adminDao;
 
